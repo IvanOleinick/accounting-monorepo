@@ -9,18 +9,14 @@ import {createAdmin} from "./config/initAdmin.js";
 import authorization from "./middlewares/authorization.middleware.js";
 import {ADMIN, MODERATOR} from "./config/constants.js";
 import cors from "cors";
+import corsOptions from "./config/corsOptions.js";
 
 const authorizationRouter = Router();
 const app = express()
 
 
 app.use(express.json());
-app.use(cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "Accept", "X-Requested-With,X-Password"],
-    credentials: true,
-}));
+app.use(cors(corsOptions));
 
 app.use(authentication);
 // app.use(/^\/account\/user\/\w+\/role\/w+$/, authorization.hasRole(ADMIN))
